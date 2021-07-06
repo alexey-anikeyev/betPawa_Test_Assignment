@@ -22,7 +22,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class UITests {
 
     private String LOGIN_PAGE_URL = "https://ug.staging.fe.verekuu.com/";
-//    private String LOGIN_PAGE_URL = "https://ug.develop.fe.verekuu.com/";
 
     private String events = "[class='tabs-content'] [data-test-id='bpEvent']";
     private String eventBets = " [class='event-bets']";
@@ -37,7 +36,6 @@ public class UITests {
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.get(LOGIN_PAGE_URL);
         loginToAccount("778899001", "123456", driver);
-//        loginToAccount("700010659", "123456", driver);
         setWindowSideAndPosition(driver);
     }
 
