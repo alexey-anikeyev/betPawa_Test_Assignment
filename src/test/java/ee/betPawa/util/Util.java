@@ -1,6 +1,5 @@
 package ee.betPawa.util;
 
-import ee.betPawa.locators.Locators;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -10,10 +9,10 @@ import static ee.betPawa.locators.Locators.*;
 public class Util {
 
     public static void loginToAccount(String mobileNumber, String password, WebDriver driver) {
-        driver.findElement(loginButtonOnMainPage).click();
+        click(loginButtonOnMainPage, driver);
         driver.findElement(mobileNumberField).sendKeys(mobileNumber);
         driver.findElement(passwordField).sendKeys(password);
-        driver.findElement(loginButtonOnLoginPage).click();
+        click(loginButtonOnLoginPage, driver);
 
         WebElement webElement = driver.findElement(balanceTitle);
         new WebDriverWait(driver, 10)
@@ -26,23 +25,23 @@ public class Util {
     }
 
     public static void clickAcceptOddsChangeCheckbox(WebDriver driver) {
-        driver.findElement(acceptOddsChangeCheckbox).click();
+        click(acceptOddsChangeCheckbox, driver);
     }
 
     public static void clickDepositButton(WebDriver driver) {
-        driver.findElement(depositButton).click();
+        click(depositButton, driver);
     }
 
     public static void clickPlaceBetButton(WebDriver driver) {
-        driver.findElement(placeBetButton).click();
+        click(placeBetButton, driver);
     }
 
     public static void clickMtnButton(WebDriver driver) {
-        driver.findElement(mTn).click();
+        click(mTn, driver);
     }
 
     public static void clickSendDepositButton(WebDriver driver) {
-        driver.findElement(sendDepositButton).click();
+        click(sendDepositButton, driver);
     }
 
     public static void enterStake(String stakeAmount, WebDriver driver) {
@@ -54,17 +53,17 @@ public class Util {
     }
 
     public static void openMyBets(WebDriver driver) {
-        driver.findElement(menuButton).click();
-        driver.findElement(myBetsMenuButton).click();
+        click(menuButton, driver);
+        click(myBetsMenuButton, driver);
     }
 
     public static void openStatement(WebDriver driver) {
-        driver.findElement(menuButton).click();
-        driver.findElement(statementsMenuButton).click();
+        click(menuButton, driver);
+        click(statementsMenuButton, driver);
     }
 
     public static void openUpcomingEvents(WebDriver driver) {
-        driver.findElement(upcomingEvents).click();
+        click(upcomingEvents, driver);
     }
 
     public static String checkLastBetInStatement(String lastBetId, WebDriver driver) {
@@ -72,40 +71,40 @@ public class Util {
     }
 
     public static String findLastBetNumber(WebDriver driver) {
-        driver.findElement(checkBetDetails).click();
-        return driver.findElement(Locators.betId).getText().replaceAll("[^0-9.]", "");
+        click(checkBetDetails, driver);
+        return textValue(betId, driver);
     }
 
     public static String lastBalanceInStatement(WebDriver driver) {
-        return driver.findElement(lastBalanceInStatement).getText();
+        return textValue(lastBalanceInStatement, driver);
     }
 
     public static String lastChangeBalanceInStatement(WebDriver driver) {
-        return driver.findElement(lastChangeBalanceInStatement).getText();
+        return textValue(lastChangeBalanceInStatement, driver);
     }
 
     public static String balance(WebDriver driver) {
-        return driver.findElement(balance).getText().replaceAll("[^0-9.]", "");
+        return textValue(balance, driver);
     }
 
     public static String myBetsOddsAmount(WebDriver driver) {
-        return driver.findElement(oddsAmount).getText().replaceAll("[^0-9.]", "");
+        return textValue(oddsAmount, driver);
     }
 
     public static String myBetsPayoutAmount(WebDriver driver) {
-        return driver.findElement(payoutAmount).getText().replaceAll("[^0-9.]", "");
+        return textValue(payoutAmount, driver);
     }
 
     public static String myBetsPotentialWinningAmount(WebDriver driver) {
-        return driver.findElement(potentialWinningAmount).getText().replaceAll("[^0-9.]", "");
+        return textValue(potentialWinningAmount, driver);
     }
 
     public static String myBetsStakeAmount(WebDriver driver) {
-        return driver.findElement(stakeAmount).getText().replaceAll("[^0-9.]", "");
+        return textValue(stakeAmount, driver);
     }
 
     public static String myBetsWinBonusAmount(WebDriver driver) {
-        return driver.findElement(winBonusAmount).getText().replaceAll("[^0-9.]", "");
+        return textValue(winBonusAmount, driver);
     }
 
     public static String betSlipOddsValue(WebDriver driver) {
@@ -124,7 +123,15 @@ public class Util {
         return betSlipElementValue(selectionsNumber > 2 ? 4 : 3, driver);
     }
 
+    public static void click(By locator, WebDriver driver) {
+        driver.findElement(locator).click();
+    }
+
     private static String betSlipElementValue(int selectionsNumber, WebDriver driver) {
         return driver.findElement(By.cssSelector("[class = 'bet-details'] div:nth-child(" + selectionsNumber + ") [class = 'right']")).getText().replaceAll("[^0-9.]", "");
+    }
+
+    private static String textValue(By locator, WebDriver driver) {
+        return driver.findElement(locator).getText().replaceAll("[^0-9.]", "");
     }
 }

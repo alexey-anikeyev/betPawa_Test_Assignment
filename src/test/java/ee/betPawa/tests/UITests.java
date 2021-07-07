@@ -79,7 +79,7 @@ public class UITests {
         openStatement(driver);
 
         assertEquals(balanceAfterDeposit, lastBalanceInStatement(driver).replaceAll("[^0-9.]", ""));
-        assertEquals("+2 000 000.00", lastChangeBalanceInStatement(driver));
+        assertEquals("+2000000.00", "+" + lastChangeBalanceInStatement(driver));
     }
 
     private void makeSelections(int selections) {
@@ -101,8 +101,8 @@ public class UITests {
             int maximum = 3;
             maximum -= min;
             int oddNumber = min + (int)(Math.random()*((maximum - min) + 1));
-            WebElement oddOfEvent = driver.findElement(By.cssSelector(eventLocator + eventBets + eventBet + ":nth-child(" + oddNumber + ")"));
-            oddOfEvent.click();
+            By oddOfEvent = By.cssSelector(eventLocator + eventBets + eventBet + ":nth-child(" + oddNumber + ")");
+            click(oddOfEvent, driver);
             if (i == 1) {
                 clickAcceptOddsChangeCheckbox(driver);
             }
@@ -128,10 +128,10 @@ public class UITests {
         openStatement(driver);
         String lastBetNumberInStatement = checkLastBetInStatement(lastBetNumber, driver);
         assertEquals("Bet #"+ lastBetNumber + " Placed", lastBetNumberInStatement, "Last Bet is not Present in statement");
-        driver.findElement(lastActionInStatement).click();
+        click(lastActionInStatement, driver);
 
         openMyBets(driver);
-        driver.findElement(By.cssSelector("[data-test-id='bet-open-" + lastBetNumber + "']")).click();
+        click(By.cssSelector("[data-test-id='bet-open-" + lastBetNumber + "']"), driver);
         assertEquals(stake + ".00", myBetsStakeAmount(driver), "Incorrect Stake Amount Between Bet Slip and My Bets");
         assertEquals(betSlipOdd, myBetsOddsAmount(driver), "Incorrect Odd Amount Between Bet Slip and My Bets");
         assertEquals(betSlipPotentialWinning, myBetsPotentialWinningAmount(driver), "Incorrect Potential Winning Amount Between Bet Slip and My Bets");
