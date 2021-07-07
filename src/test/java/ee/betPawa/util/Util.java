@@ -8,134 +8,136 @@ import static ee.betPawa.locators.Locators.*;
 
 public class Util {
 
-    public static void loginToAccount(String mobileNumber, String password, WebDriver driver) {
-        click(loginButtonOnMainPage, driver);
-        fillTheField(mobileNumberField, mobileNumber, driver);
-        fillTheField(passwordField, password, driver);
-        click(loginButtonOnLoginPage, driver);
+    public static WebDriver driver;
+
+    public static void loginToAccount(String mobileNumber, String password) {
+        click(loginButtonOnMainPage);
+        fillTheField(mobileNumberField, mobileNumber);
+        fillTheField(passwordField, password);
+        click(loginButtonOnLoginPage);
 
         WebElement webElement = driver.findElement(balanceTitle);
         new WebDriverWait(driver, 10)
                 .until(we -> webElement.isDisplayed());
     }
 
-    public static void setWindowSideAndPosition(WebDriver driver) {
+    public static void setWindowSideAndPosition() {
         driver.manage().window().setPosition(new Point(0, 0));
         driver.manage().window().setSize(new Dimension(1600, 900));
     }
 
-    public static void clickAcceptOddsChangeCheckbox(WebDriver driver) {
-        click(acceptOddsChangeCheckbox, driver);
+    public static void clickAcceptOddsChangeCheckbox() {
+        click(acceptOddsChangeCheckbox);
     }
 
-    public static void clickDepositButton(WebDriver driver) {
-        click(depositButton, driver);
+    public static void clickDepositButton() {
+        click(depositButton);
     }
 
-    public static void clickPlaceBetButton(WebDriver driver) {
-        click(placeBetButton, driver);
+    public static void clickPlaceBetButton() {
+        click(placeBetButton);
     }
 
-    public static void clickMtnButton(WebDriver driver) {
-        click(mTn, driver);
+    public static void clickMtnButton() {
+        click(mTn);
     }
 
-    public static void clickSendDepositButton(WebDriver driver) {
-        click(sendDepositButton, driver);
+    public static void clickSendDepositButton() {
+        click(sendDepositButton);
     }
 
-    public static void enterStake(String stakeAmount, WebDriver driver) {
-        fillTheField(stakeInputField, stakeAmount, driver);
+    public static void enterStake(String stakeAmount) {
+        fillTheField(stakeInputField, stakeAmount);
     }
 
-    public static void fillDepositAmountField(String amount, WebDriver driver) {
-        fillTheField(depositAmountField, amount, driver);
+    public static void fillDepositAmountField(String amount) {
+        fillTheField(depositAmountField, amount);
     }
 
-    public static void openMyBets(WebDriver driver) {
-        click(menuButton, driver);
-        click(myBetsMenuButton, driver);
+    public static void openMyBets() {
+        click(menuButton);
+        click(myBetsMenuButton);
     }
 
-    public static void openStatement(WebDriver driver) {
-        click(menuButton, driver);
-        click(statementsMenuButton, driver);
+    public static void openStatement() {
+        click(menuButton);
+        click(statementsMenuButton);
     }
 
-    public static void openUpcomingEvents(WebDriver driver) {
-        click(upcomingEvents, driver);
+    public static void openUpcomingEvents() {
+        click(upcomingEvents);
     }
 
-    public static String checkLastBetInStatement(String lastBetId, WebDriver driver) {
+    public static String checkLastBetInStatement(String lastBetId) {
         return driver.findElement(By.xpath("//a[@href='/betslip/"  + lastBetId + "']")).getText();
     }
 
-    public static String findLastBetNumber(WebDriver driver) {
-        click(checkBetDetails, driver);
-        return textValue(betId, driver);
+    public static String findLastBetNumber() {
+        click(checkBetDetails);
+        return textValue(betId);
     }
 
-    public static String lastBalanceInStatement(WebDriver driver) {
-        return textValue(lastBalanceInStatement, driver);
+    public static String lastBalanceInStatement() {
+        return textValue(lastBalanceInStatement);
     }
 
-    public static String lastChangeBalanceInStatement(WebDriver driver) {
-        return textValue(lastChangeBalanceInStatement, driver);
+    public static String lastChangeBalanceInStatement() {
+        return textValue(lastChangeBalanceInStatement);
     }
 
-    public static String balance(WebDriver driver) {
-        return textValue(balance, driver);
+    public static String balance() {
+        return textValue(balance);
     }
 
-    public static String myBetsOddsAmount(WebDriver driver) {
-        return textValue(oddsAmount, driver);
+    public static String myBetsOddsAmount() {
+        return textValue(oddsAmount);
     }
 
-    public static String myBetsPayoutAmount(WebDriver driver) {
-        return textValue(payoutAmount, driver);
+    public static String myBetsPayoutAmount() {
+        return textValue(payoutAmount);
     }
 
-    public static String myBetsPotentialWinningAmount(WebDriver driver) {
-        return textValue(potentialWinningAmount, driver);
+    public static String myBetsPotentialWinningAmount() {
+        return textValue(potentialWinningAmount);
     }
 
-    public static String myBetsStakeAmount(WebDriver driver) {
-        return textValue(stakeAmount, driver);
+    public static String myBetsStakeAmount() {
+        return textValue(stakeAmount);
     }
 
-    public static String myBetsWinBonusAmount(WebDriver driver) {
-        return textValue(winBonusAmount, driver);
+    public static String myBetsWinBonusAmount() {
+        return textValue(winBonusAmount);
     }
 
-    public static String betSlipOddsValue(WebDriver driver) {
-        return betSlipElementValue(1, driver);
+    public static String betSlipOddsValue() {
+        return betSlipElementValue(1);
     }
 
-    public static String betSlipPotentialWinningValue(WebDriver driver) {
-        return betSlipElementValue(2, driver);
+    public static String betSlipPotentialWinningValue() {
+        return betSlipElementValue(2);
     }
 
-    public static String betSlipBonusValue(WebDriver driver) {
-        return betSlipElementValue(3, driver);
+    public static String betSlipBonusValue() {
+        return betSlipElementValue(3);
     }
 
-    public static String betSlipPayoutValue(int selectionsNumber, WebDriver driver) {
-        return betSlipElementValue(selectionsNumber > 2 ? 4 : 3, driver);
+    public static String betSlipPayoutValue(int selectionsNumber) {
+        return betSlipElementValue(selectionsNumber > 2 ? 4 : 3);
     }
 
-    public static void click(By locator, WebDriver driver) {
+    public static void click(By locator) {
         driver.findElement(locator).click();
     }
 
-    public static void fillTheField(By locator, String fieldValue, WebDriver driver) {
+    public static void fillTheField(By locator, String fieldValue) {
         driver.findElement(locator).sendKeys(fieldValue);
     }
 
-    private static String betSlipElementValue(int selectionsNumber, WebDriver driver) {
+    private static String betSlipElementValue(int selectionsNumber) {
         return driver.findElement(By.cssSelector("[class = 'bet-details'] div:nth-child(" + selectionsNumber + ") [class = 'right']")).getText().replaceAll("[^0-9.]", "");
     }
 
-    private static String textValue(By locator, WebDriver driver) {
+    private static String textValue(By locator) {
         return driver.findElement(locator).getText().replaceAll("[^0-9.]", "");
     }
 }
