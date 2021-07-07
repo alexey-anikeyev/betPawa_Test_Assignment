@@ -10,8 +10,8 @@ public class Util {
 
     public static void loginToAccount(String mobileNumber, String password, WebDriver driver) {
         click(loginButtonOnMainPage, driver);
-        driver.findElement(mobileNumberField).sendKeys(mobileNumber);
-        driver.findElement(passwordField).sendKeys(password);
+        fillTheField(mobileNumberField, mobileNumber, driver);
+        fillTheField(passwordField, password, driver);
         click(loginButtonOnLoginPage, driver);
 
         WebElement webElement = driver.findElement(balanceTitle);
@@ -45,11 +45,11 @@ public class Util {
     }
 
     public static void enterStake(String stakeAmount, WebDriver driver) {
-        driver.findElement(stakeInputField).sendKeys(stakeAmount);
+        fillTheField(stakeInputField, stakeAmount, driver);
     }
 
     public static void fillDepositAmountField(String amount, WebDriver driver) {
-        driver.findElement(depositAmountField).sendKeys(amount);
+        fillTheField(depositAmountField, amount, driver);
     }
 
     public static void openMyBets(WebDriver driver) {
@@ -125,6 +125,10 @@ public class Util {
 
     public static void click(By locator, WebDriver driver) {
         driver.findElement(locator).click();
+    }
+
+    public static void fillTheField(By locator, String fieldValue, WebDriver driver) {
+        driver.findElement(locator).sendKeys(fieldValue);
     }
 
     private static String betSlipElementValue(int selectionsNumber, WebDriver driver) {
